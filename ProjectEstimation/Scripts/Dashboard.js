@@ -166,10 +166,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".deleteProject").click(function () {
-        var projectID = $(this).attr("ProjectID").val();
-        AJAX("Dashboard/DeleteProject", "POST", "{}", "alert");
-    });
+    
 
     $('#addProjectModal').on('shown.bs.modal', function (e) {
         $("#projectID").val(parseInt($(e.relatedTarget).attr("data-editproject")));
@@ -396,4 +393,10 @@ $(document).ready(function () {
             }
         });
     }
+
+    $(document).on('click', '.deleteProject', function () {
+        var projectID = $(this).data('projectid');
+        AJAX("Dashboard/DeleteProject?projectID="+projectID, "POST", "{}", "alert");
+    });
 });
+

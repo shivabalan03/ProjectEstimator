@@ -789,9 +789,10 @@ namespace ProjectEstimation.Controllers
         {
             projectDetail p = new projectDetail();
             projectEstimatorEntities pe = new projectEstimatorEntities();
-            //p = (from pp in pe.projectDetails where pp.sno.Equals(projectID) select pp)
-
-            return Json("", JsonRequestBehavior.AllowGet);
+            p = (from pp in pe.projectDetails where pp.sno.Equals(projectID) select pp).FirstOrDefault();
+            pe.projectDetails.Remove(p);
+            pe.SaveChanges();
+            return Json("Project Deleted Successfully..!", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
