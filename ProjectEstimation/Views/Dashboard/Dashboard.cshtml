@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+@*chart Plugins*@
+@*<link href="~/Content/Charts/components.css" rel="stylesheet" />
+    <script src="~/Content/Charts/jquery.min.js"></script>
+    <script src="~/Content/Charts/bootstrap.min.js"></script>
+    <script src="~/Content/Charts/echarts.js"></script>
+    <script src="~/Content/Charts/pies_donuts.js"></script>*@
+
+<link href="~/assets/css/components.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="~/assets/js/core/libraries/jquery.min.js"></script>
+<script type="text/javascript" src="~/assets/js/core/libraries/bootstrap.min.js"></script>
+<script type="text/javascript" src="~/assets/js/plugins/visualization/echarts/echarts.js"></script>
+<script src="~/Scripts/Dashboard.js"></script>
+@*<script type="text/javascript" src="~/assets/js/charts/echarts/pies_donuts.js"></script>*@
+
+<br />
+<div class="col-lg-12">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">History Data Sample</div>
+            <div class="panel-body">
+                <table id="projectDetails" class="table table-bordered table-xs">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Project Name</td>
+                            <td>Project Total Hours</td>
+                            <td>Options</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4"> None Available </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <form action="#" id="frmHistory">
+                <div class="panel-heading">Project Estimation</div>
+                <div class="panel-body">
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Database Tables</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="number" class="form-control" id="SqlTables" data-name="SQL Tables" name="SqlTables" placeholder="Enter No Of Tables" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>UI Design</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="number" class="form-control" id="UIScreens" data-name="UI Screens" name="UIScreens" placeholder="Enter No Of Screens" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Back End Code</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="checkbox" id="chkBackendCoding" class="form-check-input" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Unit Testing</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="checkbox" id="chkUnitTesting" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Technical Testing</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="checkbox" id="chkTechnicalTesting" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Bug Fixing</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="checkbox" id="chkBugFixing" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Start Date</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="date" id="startData" class="form-control" />
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Developer Count</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="number" id="developers" class="form-control" />
+                        </div><br /><br />
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-primary" id="estimatehours">Estimation</button>
+                    <button type="reset" class="btn btn-danger" id="btnreset">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br /><br />
+<hr />
+
+<form id="estimateProject" class="form-group border border-primary">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Project Phase Hours</div>
+            <div class="panel-body">
+                <!-- Basic pie chart -->
+                <div class="panel panel-flat" style="overflow:hidden">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Estimated Hours for Project</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="chart-container has-scroll">
+                            <div class="chart has-fixed-height has-minimum-width" id="basic_pie"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /bacis pie chart -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Duration Calculation</div>
+            <div class="panel-body">
+                <!-- Line and bar combination -->
+                <div class="panel panel-flat">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">Project Duration</h5>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="chart-container">
+                            <div class="chart has-fixed-height" id="line_bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /line and bar combination -->
+            </div>
+        </div>
+    </div>
+</form>
+

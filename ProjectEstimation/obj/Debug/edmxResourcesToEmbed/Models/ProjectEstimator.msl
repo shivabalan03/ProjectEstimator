@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projectEstimatorModelStoreContainer" CdmEntityContainer="projectEstimatorEntities">
+    <EntitySetMapping Name="projectDetails">
+      <EntityTypeMapping TypeName="projectEstimatorModel.projectDetail">
+        <MappingFragment StoreEntitySet="projectDetails">
+          <ScalarProperty Name="sno" ColumnName="sno" />
+          <ScalarProperty Name="projectName" ColumnName="projectName" />
+          <ScalarProperty Name="devActivityHours" ColumnName="devActivityHours" />
+          <ScalarProperty Name="Employee" ColumnName="Employee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
