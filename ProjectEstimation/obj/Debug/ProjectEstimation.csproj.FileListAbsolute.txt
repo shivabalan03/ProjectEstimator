@@ -52,3 +52,4 @@ C:\Users\User\documents\visual studio 2013\Projects\ProjectEstimation\ProjectEst
 C:\Users\User\documents\visual studio 2013\Projects\ProjectEstimation\ProjectEstimation\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\User\documents\visual studio 2013\Projects\ProjectEstimation\ProjectEstimation\obj\Debug\ProjectEstimation.dll
 C:\Users\User\documents\visual studio 2013\Projects\ProjectEstimation\ProjectEstimation\obj\Debug\ProjectEstimation.pdb
+C:\Users\User\documents\visual studio 2013\Projects\ProjectEstimation\ProjectEstimation\obj\Debug\ProjectEstimation.csprojResolveAssemblyReference.cache
