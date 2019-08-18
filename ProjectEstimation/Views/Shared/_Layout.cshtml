@@ -7,9 +7,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top" id="header">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,7 +29,6 @@
     <div class="modal" id="addProjectModal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title"> Project Details </h4>
@@ -121,6 +121,91 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="PokerEstimation" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Enter Your Estimation - <label id="emloyeeID"></label></h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="alert"></div>
+                    <div class="col-lg-12 row">
+                        <form id="addProjectForm" class="form-group">
+                            <div class="col-lg-12">
+                                <div class="col-lg-5">
+                                    <label>New Projects</label>
+                                </div>
+                                <div class="col-lg-7">
+                                    <select id="newProjectList" class="form-control"></select>
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>SQL (Database Design)</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="number" class="form-control" id="sqlHours" data-name="SQL Hours" name="SQLHours" placeholder="Hours" />
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>UI (Screen Design)</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="number" class="form-control" id="uiHours" data-name="UI Hours" name="UIHours" placeholder="Hours" />
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>BackEnd Code</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="number" class="form-control" id="backendHours" name="ControllerHours" data-name="Controller Hours" placeholder="Hours" />
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>Unit Testing</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="number" class="form-control" id="unittestHours" name="UnitTestHours" data-name="Unit Test Hours" placeholder="Hours" />
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>Technical Testing</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="number" class="form-control" id="technicalTestHours" name="TechnicalTestHours" data-name="Technical Testing Hours" placeholder="Hours" />
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>Bug Fixing</label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="number" class="form-control" id="bugFixHours" name="BugHours" data-name="Bug Fixing Hours" placeholder="Hours" />
+                                </div><br /><br />
+
+                                <div class="col-lg-5">
+                                    <label>Comments</label>
+                                </div>
+                                <div class="col-lg-7">
+                                    <textarea rows="3" cols="5" class="form-control" placeholder="Manual Comments"></textarea>
+                                </div><br /><br />
+                            </div>
+                            <br />
+                            <hr />
+                            <div class="col-lg-12 pull-right">
+                                <input type="hidden" id="projectID" />
+                                <button type="button" id="estimationProject" class="btn btn-sm btn-success">Submit</button>
+                                <button type="reset" id="reset" class="btn btn-sm btn-danger">Reset</button>
+                                <button type="button" id="close" class="btn btn-sm btn-warning" data-dismiss="modal" aria-hidden="true">Close</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid body-content">
         
         @RenderBody()
@@ -130,8 +215,9 @@
         </footer>*@
     </div>
 
+    
+    @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

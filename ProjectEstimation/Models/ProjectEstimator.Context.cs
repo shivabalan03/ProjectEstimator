@@ -26,5 +26,7 @@ namespace ProjectEstimation.Models
         }
     
         public virtual DbSet<projectDetail> projectDetails { get; set; }
+        public virtual DbSet<newProject> newProjects { get; set; }
+        public virtual DbSet<user> users { get; set; }
     }
 }

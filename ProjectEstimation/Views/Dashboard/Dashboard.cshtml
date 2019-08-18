@@ -13,6 +13,10 @@
 <script type="text/javascript" src="~/assets/js/core/libraries/jquery.min.js"></script>
 <script type="text/javascript" src="~/assets/js/core/libraries/bootstrap.min.js"></script>
 <script type="text/javascript" src="~/assets/js/plugins/visualization/echarts/echarts.js"></script>
+
+@*Gantt Chart*@
+<link href="Content/Gantt_Chart/dist/css/jquery.ganttChart-min.css" rel="stylesheet" />
+<link href="Content/Gantt_Chart/css/example.css" rel="stylesheet" />
 <script src="~/Scripts/Dashboard.js"></script>
 @*<script type="text/javascript" src="~/assets/js/charts/echarts/pies_donuts.js"></script>*@
 
@@ -41,8 +45,8 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="panel panel-default">
-            <form action="#" id="frmHistory">
+        <form action="#" id="frmHistory">
+            <div class="panel panel-default">
                 <div class="panel-heading">Project Estimation</div>
                 <div class="panel-body">
                     <div class="col-lg-12">
@@ -117,19 +121,43 @@
                         </div><br /><br />
                     </div>
 
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Estimation Technique</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <select id="estimateTechnique" class="form-control">
+                                @*<option id="Top_Down">Top Down</option>
+                                <option id="Bottom_Up">Bottom Up</option>*@
+                                <option id="Three_Point">Three Point Technique</option>
+                                <option id="Analogous_Technique">Analogous Technique</option>
+                                <option id="Parameteristic_Technique">Parameteristic Technique</option>
+                                <option id="Planning_Poker">Planning Poker</option>
+                            </select>
+                        </div><br /><br />
+                    </div>
+
+                    <div class="col-lg-12" id="projectList" style="visibility:hidden">
+                        <div class="col-lg-4">
+                            <label>Exising Project</label>
+                        </div>
+                        <div class="col-lg-8">
+                            <select id="ddlProjects" class="form-control">
+                            </select>
+                        </div><br /><br />
+                    </div>
+
                 </div>
                 <div class="panel-footer">
                     <button type="button" class="btn btn-primary" id="estimatehours">Estimation</button>
                     <button type="reset" class="btn btn-danger" id="btnreset">Reset</button>
                 </div>
-            </form>
-
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 
 <br /><br />
-<hr />
 
 <form id="estimateProject" class="form-group border border-primary">
     <div class="col-lg-6">
@@ -177,9 +205,10 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="chart-container">
-                            <div class="chart has-fixed-height" id="line_bar"></div>
-                        </div>
+                        @*<div class="chart-container">
+                                <div class="chart has-fixed-height" id="line_bar"></div>
+                            </div>*@
+                        <div id="demo" class="example"></div>
                     </div>
                 </div>
                 <!-- /line and bar combination -->
@@ -188,3 +217,15 @@
     </div>
 </form>
 
+<div class="col-lg-12">
+    <div id="demo" class="example"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- Add required improvedDate -->
+@*<script src="Content/Gantt_Chart/js/improvedDate.min.js"></script>*@
+<!-- Add jquery.ganttChart plugin -->
+@*<script src="Content/Gantt_Chart/dist/js/jquery.ganttChart.min.js"></script>*@
+<!-- docs example -->
+@*<script src="~/Scripts/Dashboard.js"></script>
+    <script src="Content/Gantt_Chart/js/example.js"></script>*@

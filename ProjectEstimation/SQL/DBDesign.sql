@@ -6,10 +6,15 @@ projectName varchar(100) not null,
 devActivityHours varchar(max),
 Employee varchar(255));
 
-select * from projectDetails;
+create table users(
+sno int identity(1,1) primary key,
+userName varchar(255) not null,
+password varchar(255) not null);
 
-{"ProjectName":"adfasd","SQLCount":"1","SQLHours":"1",
-"UICount":"1","UIHours":"1","ControllerCount":"1",
-"ControllerHours":"1","UnitTestCount":"1","UnitTestHours":"1",
-"TechnicalTestCount":"1","TechnicalTestHours":"1",
-"BugCounts":"1","BugHours":"1"}
+create table newProjects(
+sno int identity(1,1) primary key,
+projectName varchar(255) not null,
+userComments varchar(255));
+
+
+

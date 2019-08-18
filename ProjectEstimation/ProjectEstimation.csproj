@@ -164,11 +164,15 @@
     <Compile Include="Controllers\Constants.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\newProject.cs">
+      <DependentUpon>ProjectEstimator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\projectDetail.cs">
       <DependentUpon>ProjectEstimator.tt</DependentUpon>
     </Compile>
@@ -186,6 +190,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectEstimator.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user.cs">
+      <DependentUpon>ProjectEstimator.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -4267,6 +4274,13 @@
     <Content Include="Content\assets\js\plugins\visualization\sparkline.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Gantt_Chart\css\example.css" />
+    <Content Include="Content\Gantt_Chart\dist\css\jquery.ganttChart-min.css" />
+    <Content Include="Content\Gantt_Chart\dist\js\jquery.ganttChart.min.js" />
+    <Content Include="Content\Gantt_Chart\img\esys.svg" />
+    <Content Include="Content\Gantt_Chart\js\example.js" />
+    <Content Include="Content\Gantt_Chart\js\improvedDate.min.js" />
+    <Content Include="Content\login.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -4841,15 +4855,19 @@
     <Content Include="assets\locales\en.json" />
     <Content Include="assets\locales\ru.json" />
     <Content Include="assets\locales\ua.json" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Dashboard.js" />
+    <Content Include="Content\Gantt_Chart\dist\css\jquery.ganttChart-min.css.map" />
+    <Content Include="Content\Gantt_Chart\dist\js\jquery.ganttChart.min.js.map" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -4868,7 +4886,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
@@ -4880,6 +4897,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

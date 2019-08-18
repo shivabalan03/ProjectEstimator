@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4ca73f8dd71c446f84bfa0f692a80a9f" Name="Diagram1">
         <EntityTypeShape EntityType="projectEstimatorModel.projectDetail" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectEstimatorModel.newProject" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="projectEstimatorModel.user" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

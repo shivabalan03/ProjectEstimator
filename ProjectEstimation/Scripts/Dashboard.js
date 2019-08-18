@@ -32,9 +32,9 @@ $(document).ready(function () {
                 
             },
             complete: function (result) {
-
                 if (returnMethod == "LoadProject") {
                     var tblContent = "";
+                    var projectList = "";
                     $.each(result.responseJSON, function (index, items) {
                         var activity = JSON.parse(items.devActivityHours);
                         var hours = 0;
@@ -49,8 +49,10 @@ $(document).ready(function () {
                         tblContent += "<td>" + hours + "</td>";
                         tblContent += "<td><button data-toggle='modal' data-target='#addProjectModal' data-content=" + items.devActivityHours + " class='btn btn-xs btn-warning editProject' data-editProject=" + items.sno + ">Edit</button>&nbsp&nbsp<button class='btn btn-xs btn-danger deleteProject' data-ProjectID='" + items.sno + "'>Delete</button></td>";
                         tblContent += "</tr>";
+                        projectList += "<option id='"+ items.projectName +"'>" + items.projectName + "</option>";
                     });
                     $("#projectDetails tbody").html(tblContent);
+                    $("#ddlProjects").html(projectList);
                 } else if (returnMethod == "alert") {
                     alert(result.responseText);
                     if (isReset) {
@@ -60,7 +62,8 @@ $(document).ready(function () {
                         LoadALLProject();
                     }
                 } else if (returnMethod == "estimateHours") {
-                    BindChart(result.responseJSON[1], result.responseJSON[0]);
+                    BindChart(result.responseJSON[0]);
+                    bindGanttChart(result.responseJSON[1]);
                 } else if (returnMethod == "editProject") {
                     appendValueToModal(JSON.parse(result.responseJSON.devActivityHours));
                 }
@@ -166,8 +169,6 @@ $(document).ready(function () {
         }
     });
 
-    
-
     $('#addProjectModal').on('shown.bs.modal', function (e) {
         $("#projectID").val(parseInt($(e.relatedTarget).attr("data-editproject")));
         AJAX("Dashboard/EditProject?sno=" + parseInt($(e.relatedTarget).attr("data-editproject")), "GET", "{}", "editProject");
@@ -176,7 +177,6 @@ $(document).ready(function () {
     function LoadALLProject() {
         AJAX("Dashboard/LoadProject", "GET", "{}", "LoadProject");
     }
-
 
     function BindChart(dataValue, durationChart) {
         require.config({
@@ -203,7 +203,7 @@ $(document).ready(function () {
         // Charts setup
         function (ec, limitless) {
             var basic_pie = ec.init(document.getElementById('basic_pie'), limitless);
-            var line_bar = ec.init(document.getElementById('line_bar'), limitless);
+            //var line_bar = ec.init(document.getElementById('line_bar'), limitless);
             basic_pie_options = {
                 title: {
                     text: 'Project Estimation',
@@ -275,18 +275,18 @@ $(document).ready(function () {
 
                 // Add series
                 series: [{
-                    name: 'Development Activity',
+                    name: 'Hours',
                     type: 'pie',
                     radius: '70%',
                     center: ['50%', '57.5%'],
-                    data: [
-                        { value: 335, name: 'Database Design' },
-                        { value: 310, name: 'UI Development' },
-                        { value: 234, name: 'Unit Testing' },
-                        { value: 135, name: 'Techinical Testing' },
-                        { value: 1548, name: 'Bug Fixing' }
-                    ],
-                    //data: dataValue
+                    //data: [
+                    //    { value: 335, name: 'Database Design' },
+                    //    { value: 310, name: 'UI Development' },
+                    //    { value: 234, name: 'Unit Testing' },
+                    //    { value: 135, name: 'Techinical Testing' },
+                    //    { value: 1548, name: 'Bug Fixing' }
+                    //],
+                    data: dataValue
                 }]
             };
 
@@ -383,12 +383,12 @@ $(document).ready(function () {
             };
 
             basic_pie.setOption(basic_pie_options);
-            line_bar.setOption(line_bar_options);
+            //line_bar.setOption(line_bar_options);
 
             window.onresize = function () {
                 setTimeout(function () {
                     basic_pie.resize();
-                    line_bar.resize();
+                    //line_bar.resize();
                 }, 200);
             }
         });
@@ -398,5 +398,96 @@ $(document).ready(function () {
         var projectID = $(this).data('projectid');
         AJAX("Dashboard/DeleteProject?projectID="+projectID, "POST", "{}", "alert");
     });
+
+    $(document).on('change', '#estimateTechnique', function () {
+        var selected = $(this).val();
+        if (selected == "Analogous Technique") {
+            $("#projectList").removeAttr("style", "");
+        } else {
+            $("#projectList").css("visibility", "hidden");
+            if (selected == "Planning Poker") {
+                $('#PokerEstimation').modal('toggle');
+            }
+        }
+    });
+
+    function bindGanttChart(eventDays) {
+        $("#demo").html("");
+        var startDate = new Date($("#startData").val());
+        if (eventDays.length > 0) {
+            var startIndex = 1;
+            var productivity = eventDays[0];
+            var resultContent = [];
+            var devActivity = "";
+            $.each(eventDays, function (a, b) {
+                if (a != 0) {
+                    if (a == 1) { devActivity = "SQL Development" }
+                    else if (a == 2) { devActivity = "UI Development" }
+                    else if (a == 3) { devActivity = "Backend Development" }
+                    else if (a == 4) { devActivity = "Unit Testing" }
+                    else if (a == 5) { devActivity = "Technical Testing" }
+                    else if (a == 6) { devActivity = "Bug Fixing" }
+                    var days = parseInt(b / productivity);
+                    if (days == 0) {
+                        days = 1;
+                    }
+                    var date = new Date(startDate);
+                    var newdate = new Date(date);
+                    var endDat = newdate.setDate(newdate.getDate() + days);
+                    var obj = {
+                        startDate: new Date(startDate),
+                        endDate: new Date(endDat),
+                        title: devActivity,
+                        href: '#',
+                        style: ''
+                    }
+                    //startDate = startDate + days;
+                    //var tt = startDate;
+                    //var date = new Date(startDate);
+                    //var newdate = new Date(date);
+                    startDate = endDat;
+
+                    resultContent.push(obj);
+                }
+            });
+        }
+        $('#demo').ganttChart({
+            //startDate: new Date(new Date().getTime() - 5 * 86400000),
+            //endDate: new Date(new Date().getTime() + 45 * 86400000),
+            startDate: new Date(new Date($("#startData").val()) - 2 * 86400000),
+            endDate: new Date(new Date(startDate).getTime() + 2 * 86400000),
+            //events: [{
+            //    startDate: new Date(new Date().getTime() - 2 * 86400000),
+            //    endDate: new Date(new Date().getTime() + 4 * 86400000),
+            //    title: 'jQueryScript',
+            //    href: '#',
+            //    style: ''
+            //},
+            //{
+            //    startDate: new Date(new Date().getTime() - 4 * 86400000),
+            //    endDate: new Date(new Date().getTime() + 2 * 86400000),
+            //    title: '.Net',
+            //    href: '#',
+            //    style: ''
+            //},
+            //{
+            //    startDate: new Date(new Date().getTime() - 4 * 86400000),
+            //    endDate: new Date(new Date().getTime() + 2 * 86400000),
+            //    title: 'SQL Development 123',
+            //    href: '#',
+            //    style: ''
+            //}],
+            events : resultContent,
+            tmpl: {
+                month: '<div class="example-month"></div>',
+                week: '<div class="example-week">W</div>',
+                date: '<div class="example-date"></div>',
+                day: '<div class="example-day"></div>',
+                col: '<div class="example-col"></div>',
+                row: '<div class="example-row"></div>',
+                event: '<div class="example-event"></div>'
+            }
+        });
+    }
 });
 

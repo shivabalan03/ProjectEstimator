@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="projectEstimatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="projectEstimatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="newProjects">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="userComments" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="projectDetails">
           <Key>
             <PropertyRef Name="sno" />
@@ -14,11 +22,20 @@
           <Property Name="devActivityHours" Type="varchar(max)" />
           <Property Name="Employee" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="projectEstimatorModelStoreContainer">
+          <EntitySet Name="newProjects" EntityType="Self.newProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="projectDetails" EntityType="Self.projectDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="projectEstimatorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -33,7 +50,25 @@
         </EntityType>
         <EntityContainer Name="projectEstimatorEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="projectDetails" EntityType="Self.projectDetail" />
+          <EntitySet Name="newProjects" EntityType="projectEstimatorModel.newProject" />
+          <EntitySet Name="users" EntityType="projectEstimatorModel.user" />
         </EntityContainer>
+        <EntityType Name="newProject">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projectName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="userComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -47,6 +82,24 @@
                 <ScalarProperty Name="projectName" ColumnName="projectName" />
                 <ScalarProperty Name="devActivityHours" ColumnName="devActivityHours" />
                 <ScalarProperty Name="Employee" ColumnName="Employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="newProjects">
+            <EntityTypeMapping TypeName="projectEstimatorModel.newProject">
+              <MappingFragment StoreEntitySet="newProjects">
+                <ScalarProperty Name="userComments" ColumnName="userComments" />
+                <ScalarProperty Name="projectName" ColumnName="projectName" />
+                <ScalarProperty Name="sno" ColumnName="sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="projectEstimatorModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="sno" ColumnName="sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
